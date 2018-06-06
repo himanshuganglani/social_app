@@ -89,7 +89,7 @@ body {
 
 <div class="sidenav">
 	 <img src="{% static '/logo.jpg' %}" alt="Logo">
-  <a href="#services">Home</a>
+  <a href="{% url 'profile-list' %}">Home</a>
   <a href="#contact">Profile</a>
   <button class="dropdown-btn">Post 
     <i class="fa fa-caret-down"></i>
@@ -102,15 +102,22 @@ body {
 
 
   </div>
-  <a href="{% url 'logout' %}" >Logout </a>
+  <a href="{% url 'logout-sess' %}" >Logout </a>
+  <a href="{% url 'social:disconnect' 'facebook' %}">logoutFacebook</a>
 </div>
 
 <div class="main">
-  <h2>Sidebar Dropdown</h2>
-  <p>Click on the dropdown button to open the dropdown menu inside the side navigation.</p>
-  <p>This sidebar is of full height (100%) and always shown.</p>
-  <p>Some random text..</p>
+  <h1>hello</h1>
+  {% for profile in object_list %}
+    
+    User Email :{{profile.user.email}}<br/>
+    User Name :{{profile.full_name}}<br/>
+    User Dob :{{ profile.birthday }}<br/>
+    Profile Picture :<img src="{{ profile.image_url.url }}" alt="..."><br/>
+    {{profile.image_url}}
+  {% endfor%}
 </div>
+
 
 <script>
 /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */

@@ -21,8 +21,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '*(5v7dl4_=uw1giwk+lkx#3dlt=&&7$tvb4(yc96xx@*-ve$dv'
-SOCIAL_AUTH_GITHUB_KEY = '67091931a3ef291f0f0d'
-SOCIAL_AUTH_GITHUB_SECRET = '3d572496e0c84275ab43829d88c16ca431d1350a'
+SOCIAL_AUTH_GITHUB_KEY = '64893af0de8e0af533bc'
+SOCIAL_AUTH_GITHUB_SECRET = 'e6402ce4b6fcb8be74898242d93d9feb463b8ef2'
 
 SOCIAL_AUTH_TWITTER_KEY = ' 9Xro0RvB0b4uurvnJSZwnuR1P'
 SOCIAL_AUTH_TWITTER_SECRET = 'Kh9HLJmFPvI58Tjzl4EVEJkE0M7P2LmcZTSCbPHbNb4gy9Inm0'
@@ -30,15 +30,39 @@ SOCIAL_AUTH_TWITTER_SECRET = 'Kh9HLJmFPvI58Tjzl4EVEJkE0M7P2LmcZTSCbPHbNb4gy9Inm0
 
 SOCIAL_AUTH_FACEBOOK_KEY = '2160222237541076'  # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = 'c3efed5f4dd3b86cfa0ccedc507ac30b'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email','user_gender','user_hometown','user_birthday','public_profile,']
 
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'locale': 'ru_RU',
+  # 'fields': 'id, name, email, age_range'
+  'fields': 'id,name,email,gender,about,birthday,first_name,hometown',
+}
+
+# SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
+SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
+SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ALLOWED_HOSTS = [ 'localhost', '127.0.0.1']
+AUTH_PROFILE_MODULE = 'base.UserProfile'
 
-
-
+AUTH_PROFILE_MODULE = "prof.userprofile"
 
 # Application definition
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.social_auth.associate_by_email', 
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    'users.pipeline.update_user_social_data', #save facebook profile image,
+)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -61,6 +85,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+
 ]
 
 ROOT_URLCONF = 'social_app.urls'
@@ -78,7 +103,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',  
                 'social_django.context_processors.login_redirect', 
-
+                
             ],
         },
     },
@@ -98,13 +123,15 @@ DATABASES = {
 }
 
 AUTHENTICATION_BACKENDS = (
+    'social_core.backends.open_id.OpenIdAuth',
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.facebook.FacebookOAuth2',
-
     'django.contrib.auth.backends.ModelBackend',
+    'django.core.mail.backends.console.EmailBackend',
 )
 
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -122,6 +149,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 
 # Internationalization
@@ -154,4 +182,9 @@ MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media/')
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'home'
+
+
+
+
+
 

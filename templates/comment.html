@@ -1,0 +1,36 @@
+{% extends 'home.html' %}
+{% load i18n %}
+{% block content%}
+{# Content header #}
+{% block header-title %}{% trans 'New Post' %}{% endblock %}
+
+{% block form-fields-col-width %}
+<div class="col-md-12">
+{% endblock %}
+
+
+<form method="POST", action="" , enctype="multipart/form-data">
+	{% csrf_token%}
+  {{form}}
+	<table class="table table-bordered">
+                  <tr>
+                    
+                    <th>{% trans 'comment' %}</th> 
+                 </tr>
+	{% for field in form %}
+
+	 <td> {{field}}</td>
+	
+
+{% endfor %}
+	 
+</table>
+<div class="box-header with-border">
+        <div class="pull-right">
+        <input type="submit" name="status" class="btn btn-primary btn-lg" value="{% trans 'Save' %}">
+        <a href="/post/list" class="btn btn-lg  btn-default">{% trans 'Cancel' %}</a>
+        </div>
+      </div> </button>
+</form>
+</div>
+{% endblock %}
