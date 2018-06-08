@@ -1,0 +1,32 @@
+{%include 'home.html'%}
+{% load i18n %}
+{% block content %}
+  <h2>Entry</h2>
+<div class="main">
+<div class="box-body  ">
+<table class="table  table-bordered table-striped"> 
+	<thead>
+	<tr><th> All User </th>
+		<th> joined Time </th>
+		<th> Actiones </th>
+	</tr>
+</thead>	
+
+<tbody>
+{% for object in object_list %}
+  		<tr>
+  			<td><i id="friend_id">{{ object.id }}<i></td> 
+		<td>{{ object.username }}</td> 
+		<td> {{object.date_joined }}</td>
+		<td><a role="button" href="{% url 'friend-request' object.id %}"
+			class="btn btn-success ">
+			<i class=""></i>Send Friend request</a>
+		</td>
+{% endfor %}
+
+	</tr>
+	</tbody>
+	</table>
+</div>
+</div>
+{% endblock %}

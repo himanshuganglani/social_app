@@ -24,7 +24,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     # url(r'^$', core_views.home, name='home'),
-    url(r'^$', TemplateView.as_view(template_name='home.html'), name='home'),
     url(r'^login/$', auth_views.login, {'template_name': 'users/login.html'}, name='login'),
     # url(r'^signup/$', signup.as_view, name='signup'),
     url(r'^logout/$', auth_views.logout, {'template_name': 'users/logout.html'}, name='logout'),
@@ -32,4 +31,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('users.urls')),
     url(r'', include('post.urls')),
+    url(r'', include('friendlist.urls')),
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT);

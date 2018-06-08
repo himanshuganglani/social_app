@@ -6,8 +6,8 @@ from datetime import datetime
 import datetime
 
 def update_user_social_data(strategy, *args, **kwargs):
-    if not kwargs['is_new']:
-        return
+    # if not kwargs['is_new']:
+    #     return
     full_name = ''
     backend = kwargs['backend']
     # backend.__class__.__name__

@@ -1,0 +1,17 @@
+
+{% include 'home.html' %}
+
+{% load i18n %}
+{% block content%}
+<div class="main">
+  <h1>hello</h1>
+  {% for profile in object_list %}
+    
+    User Email :{{profile.user.email}}<br/>
+    User Name :{{profile.full_name}}<br/>
+    User Dob :{{ profile.birthday }}<br/>
+    Profile Picture :<img src="{{ profile.image_url }}" alt="..."><br/>
+    	{{profile.image_url}}
+  {% endfor%}
+</div>
+{% endblock %}

@@ -88,9 +88,10 @@ body {
 <body>
 
 <div class="sidenav">
-	 <img src="{% static '/logo.jpg' %}" alt="Logo">
-  <a href="{% url 'profile-list' %}">Home</a>
-  <a href="#contact">Profile</a>
+	 <img src="{% static 'logo.jpg' %}" alt="Logo">
+  <a href="">Home</a>
+  <a href="{% url 'profile-list' %}">Profile</a>
+
   <button class="dropdown-btn">Post 
     <i class="fa fa-caret-down"></i>
   </button>
@@ -102,20 +103,14 @@ body {
 
 
   </div>
-  <a href="{% url 'logout-sess' %}" >Logout </a>
+  <a href="{% url 'friend-list' user.id  %}">UserList</a>
+  <a href="{% url 'logout' %}" >Logout </a>
   <a href="{% url 'social:disconnect' 'facebook' %}">logoutFacebook</a>
 </div>
 
 <div class="main">
   <h1>hello</h1>
-  {% for profile in object_list %}
-    
-    User Email :{{profile.user.email}}<br/>
-    User Name :{{profile.full_name}}<br/>
-    User Dob :{{ profile.birthday }}<br/>
-    Profile Picture :<img src="{{ profile.image_url.url }}" alt="..."><br/>
-    {{profile.image_url}}
-  {% endfor%}
+  
 </div>
 
 

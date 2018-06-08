@@ -1,7 +1,8 @@
-{% extends 'base.html' %}
 
+{% include 'home.html'%}
 {% load i18n %}
 {% block content %}
+<div class="main">
   <h2>New Post</h2>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -12,41 +13,30 @@
 	{% for post in object_list %}
 		
 		{{post.profile.user}}
+    {{post.description}}
 		<img src="{{ post.image.url }}" alt="...">
 		
 
             <a role="button" href="{% url 'post-delete' post.id %}"
                class="btn btn-danger btn-delete"
                data-confirm="{% trans 'Are you sure to delete this item?' %}"><i
-                    class=""></i>X</a>{{ post.image }} 
-
+                    class=""></i>X</a>{{ post.image }} <br/>
                     
-            
+                
+        <a href="{% url 'comment-create' post.id%}">See more</a>
+            <a href="{% url 'like-count' post.id%}">
+  <span class="glyphicon glyphicon-thumbs-up"></span></a>
+<a href="{% url 'dislike-count' post.id%}">
+          <span class="glyphicon glyphicon-thumbs-down"></span>
+        </a>
+                    
 
     
 <div >
 
-
-
-                <a href="{% url 'like-count' post.id%}">
-          <span class="glyphicon glyphicon-thumbs-up"></span>
-        </a>
-<a href="{% url 'dislike-count' post.id%}">
-          <span class="glyphicon glyphicon-thumbs-down"></span>
-        </a>
-<form method="post" action="">
-  {% csrf_token %}
-  <input type = "textarea" placeholder="Comment here">
-  <button type="submit" class="btn btn-info">Submit</button>
-    {% for field in form %}
-
-   <td> {{field}}</td>
-  
-
-{% endfor %}
-</form>
 </div>
 {% endfor %}
 {% endblock %}
 </table>
+</div>
 </div>

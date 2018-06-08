@@ -1,13 +1,13 @@
-{% extends 'home.html' %}
+{% include 'home.html' %}
 {% load i18n %}
 {% block content%}
 {# Content header #}
 {% block header-title %}{% trans 'New Post' %}{% endblock %}
 
-{% block form-fields-col-width %}
+<!-- {% block form-fields-col-width %}
 <div class="col-md-12">
-{% endblock %}
-
+{% endblock %} -->
+<div class="main">
 
 <form method="POST", action="" , enctype="multipart/form-data">
 	{% csrf_token%}
@@ -29,9 +29,10 @@
 <div class="box-header with-border">
         <div class="pull-right">
         <input type="submit" name="status" class="btn btn-primary btn-lg" value="{% trans 'Save' %}">
-        <a href="/post/list" class="btn btn-lg  btn-default">{% trans 'Cancel' %}</a>
+       <button class=""><a href="/post/list" class="btn btn-lg  btn-default">{% trans 'Cancel' %}</a></button>
         </div>
       </div> </button>
 </form>
+</div>
 </div>
 {% endblock %}

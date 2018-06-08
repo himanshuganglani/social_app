@@ -1,0 +1,55 @@
+{% include 'home.html' %}
+
+{% load i18n %}
+{% block content%}
+<div class="main">
+<div align="center">
+
+{% for item in  post_data %}
+    
+    {{item.image}} 
+    <img src="{{ item.image.url }}" alt="...">
+  {% endfor %}<br/>
+
+  Comments are:<br/>
+  {% for item in  comment_data %}
+  {{item.user}}
+  {{item.comment}}
+  {{item.id}}<br/>
+  {% endfor %}
+</div>
+
+<form method="POST", action="" , enctype="multipart/form-data">
+	{% csrf_token%}
+	<table class="table ">
+
+                  
+          <label for="user">{% trans '' %}</label>
+              <input type="hidden" class="form-control" id="user" name="user" value="{{user.id}}" required>
+              <label for="post">{% trans 'post' %}</label>
+              <input type="text" class="form-control" id="post" name="post" value="{{postid}}" required>
+              <label for="comment">{% trans 'Comment' %}</label>
+              {{form.comment}}
+
+
+	 
+</table>
+
+<div class="box-header with-border">
+        <div class="pull-right">
+        <input type="submit" name="status" class="btn btn-primary btn-lg" value="{% trans 'Save' %}">
+        <button><a href="/post/list" class="btn btn-lg  btn-default">{% trans 'Cancel' %}</a></button>
+       
+        </div>
+      </div> </button>
+</form>
+</div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+ var a =0
+ $("select").chanege(function(){
+  a =  $("#id_post").val()
+});
+</script>
+{% endblock %}

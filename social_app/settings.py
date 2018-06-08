@@ -74,6 +74,8 @@ INSTALLED_APPS = [
     'social_django',
     'users.apps.UsersConfig',
     'post.apps.PostConfig',
+    'django_render_partial',
+    'friendlist.apps.FriendlistConfig',
 ]
 
 MIDDLEWARE = [
@@ -103,7 +105,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',  
                 'social_django.context_processors.login_redirect', 
-                
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -128,7 +130,7 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
-    'django.core.mail.backends.console.EmailBackend',
+    # 'django.core.mail.backends.console.EmailBackend',
 )
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

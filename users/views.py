@@ -21,21 +21,27 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import logout as original_logout
 from django.contrib.auth.views import login as original_login
 from django.contrib.sessions.backends.base import SessionBase
-
+from django.contrib.sessions.models import Session
 
  
 class ProfileList(LoginRequiredMixin,ListView):
-    template_name = 'home.html'
+    template_name = 'users/profile.html'
     model = Profile
+    # def get_queryset(self):
+    #     user = request.user
+    #     queryset = super(ProfileList, self).get_queryset()
+    #     queryset = queryset.filter(user__id=user.id)
+    #     return queryset
 
-@login_required
+@login_required(login_url='/login/')
 def home(request):
     return render(request, 'home.html')
 
 def alt_logout(request, *args, **kwargs):
-    for sesskey in request.session.keys():
-        del request.session[sesskey]
-    return original_logout(request, *args, **kwargs)
+    session = Session.objects.all().delete()
+    return HttpResponseRedirect("/login/")
+    
+    
 
 def signup(request):
     if request.method == 'POST':
